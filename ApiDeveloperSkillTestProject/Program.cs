@@ -1,5 +1,5 @@
+using ApiDeveloperSkillTestProject.Data;
 using Microsoft.EntityFrameworkCore;
-using PacificKnitDivisionWebPortal.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -1,8 +1,7 @@
 ﻿using API.Model;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 
-namespace PacificKnitDivisionWebPortal.Data
+namespace ApiDeveloperSkillTestProject.Data
 {
     public class ApplicationDBContext : DbContext
     {
@@ -10,6 +9,5 @@ namespace PacificKnitDivisionWebPortal.Data
         {
         }
         public DbSet<ProductModel> products { get; set; }
-
     }
 }
