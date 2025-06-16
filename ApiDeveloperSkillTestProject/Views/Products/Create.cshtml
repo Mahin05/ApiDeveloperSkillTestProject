@@ -8,27 +8,25 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
+            <div class="form-group mb-2">
                 <label class="control-label">Name</label>
                 <input class="form-control" id="Name"/>
                 <span class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group mb-2">
                 <label class="control-label">Description</label>
                 <input class="form-control" id="Description" />
                 <span class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group mb-2">
                 <label class="control-label">Price</label>
                 <input class="form-control" id="Price" />
                 <span class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+            <div class="form-group mb-2">
+            <input type="button" id="CreateBtn" value="Create" class="btn btn-primary" />
             </div>
-        </form>
     </div>
 </div>
 
@@ -41,22 +39,40 @@
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
     <script type="text/javascript">
+
+        function Saveproductinfo(){
+        var ProductName = $("#Name").val();
+        var description = $("#Description").val();
+        var price = $("#Price").val();
+
+
+            var Product = {
+            name: ProductName,
+            description: description,
+            price: price
+
+        }
         $.ajax({
-            url: '/api/api/product/CreateProduct',
+            url: '@Url.Action("CreateProduct", "Product")',
             method: 'POST',
             contentType: 'application/json',
             dataType: 'json',
-            data: JSON.stringify({
-                name: $("#Name").val(),
-                description: $("#Description").val(),
-                price: parseFloat($("#Price").val())
-            }),
+            async: true,
+            dataType: 'json',
+            data: JSON.stringify(Product),
             success: function (response) {
-              alert("Product created successfully!");
+                alert("Product created successfully!");
             },
-            error: function (xhr, status, error) {
-                console.error("An error occurred: " + error);
+            error: function () {
+                alert("Failed");
             }
+        });
+        };
+
+
+        $("#CreateBtn").click(function () {
+            alert("click");
+            Saveproductinfo();
         });
     </script>
 }

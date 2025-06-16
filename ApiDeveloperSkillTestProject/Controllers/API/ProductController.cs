@@ -10,7 +10,7 @@ using ApiDeveloperSkillTestProject.Data;
 
 namespace ApiDeveloperSkillTestProject.Controllers.API
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class ProductController : ControllerBase
     {
@@ -73,10 +73,13 @@ namespace ApiDeveloperSkillTestProject.Controllers.API
             {
                 _context.Add(productModel);
                 await _context.SaveChangesAsync();
-                return Ok("created successfully");
+
+                return Ok(new {success = true, message = "Product created successfully",data = productModel});
             }
-            return Ok(productModel);
+
+            return BadRequest(new {success = false,message = "Invalid product data"});
         }
+
 
         // GET: Product/Edit/5
         //public async Task<IActionResult> Edit(int? id)
