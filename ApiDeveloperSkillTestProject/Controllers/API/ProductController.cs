@@ -33,7 +33,7 @@ namespace ApiDeveloperSkillTestProject.Controllers.API
                 return NotFound("products not found.");
             }
 
-            return Ok(allProducts);
+            return Ok(new {success=true,message="data loaded successfully",data= allProducts });
         }
 
 

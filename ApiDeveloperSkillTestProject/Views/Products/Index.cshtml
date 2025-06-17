@@ -7,37 +7,53 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Name
-            </th>
-            <th>
-                Description
-            </th>
-            <th>
-                Price
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-            <tr>
-                <td>
-                    
-                </td>
-                <td>
-                    
-                </td>
-                <td>
-                    
-                </td>
-                <td>
-                    <a asp-action="Edit">Edit</a> |
-                    <a asp-action="Details">Details</a> |
-                    <a asp-action="Delete">Delete</a>
-                </td>
-            </tr>
-    </tbody>
-</table>
+<p class="text-center fs-4" style="display:block" id="NoDataFlag">No Data Avaialbe</p>
+<div id="product-table"></div>
+
+@section Scripts{
+    <script type="text/javascript">
+        $.ajax({
+              url: '@Url.Action("GetAllProducts", "Product")',
+              method: 'GET',
+              dataType: 'json',
+              success: function (response) {
+                  console.log("response",response.data);
+                  if (response.data) {
+                      $("#NoDataFlag").css("display", "none");
+                      //Build Tabulator
+                          table = new Tabulator("#product-table", {
+                          height: "450px",
+                          data: response.data,
+                          layout: "fitColumns",
+                          placeholder: "No Data Set",
+                          pagination: "local",
+                          paginationSize: 15,
+                          paginationSizeSelector: [5, 10, 15, 20,25],
+                          movableColumns: true,
+                          paginationCounter: "rows",
+                          columns: [
+                              { title: "Product Name", field: "name", sorter: "string"},
+                              { title: "Description", field: "description", sorter: "string"},
+                              { title: "Price", field: "price", sorter: "string"},
+                              {
+                                  title: "Actions", field: "", sorter: "string"/* , width: 200 */, formatter: function (cell, formatterParams, onRendered) {
+                                      var id = cell.getRow().getData().id;
+                                      return `<a href='/Admin/Department/Upsert/${id}' class='btn btn-sm btn-success'><i class="bi bi-pen-fill"></i></a> <a class='btn btn-sm btn-danger delete-button' data-id='${id}'><i class="bi bi-trash-fill"></i></a>
+
+                                      `;
+                                  }
+                              }
+                          ],
+                      });
+                  }
+                  else {
+                      $("#NoDataFlag").css("display", "block");
+                      console.log("No data found.");
+                  }
+              },
+              error: function (xhr, status, error) {
+                  //console.error("An error occurred: " + error);
+              }
+          });
+    </script>
+}
