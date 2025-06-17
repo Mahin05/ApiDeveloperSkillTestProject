@@ -39,7 +39,6 @@ namespace ApiDeveloperSkillTestProject.Controllers.API
 
 
         // GET: Product/Details/5
-
         [Route("GetProduct")]
         [HttpGet]
         public async Task<IActionResult> Details(int? id)
@@ -59,16 +58,7 @@ namespace ApiDeveloperSkillTestProject.Controllers.API
             return Ok(new { success = true, message = "data loaded successfully", data = productModel });
         }
 
-        // GET: Product/Create
-        //public IActionResult Create()
-        //{
-        //    return Ok();
-        //}
-
         // POST: Product/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-
         [Route("CreateProduct")]
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] ProductModel productModel)
@@ -102,76 +92,6 @@ namespace ApiDeveloperSkillTestProject.Controllers.API
             return BadRequest(new {success = false,message = "Invalid product data"});
         }
 
-
-        // GET: Product/Edit/5
-        //public async Task<IActionResult> Edit(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    var productModel = await _context.products.FindAsync(id);
-        //    if (productModel == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return Ok(productModel);
-        //}
-
-        // POST: Product/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Price")] ProductModel productModel)
-        //{
-        //    if (id != productModel.Id)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    if (ModelState.IsValid)
-        //    {
-        //        try
-        //        {
-        //            _context.Update(productModel);
-        //            await _context.SaveChangesAsync();
-        //        }
-        //        catch (DbUpdateConcurrencyException)
-        //        {
-        //            if (!ProductModelExists(productModel.Id))
-        //            {
-        //                return NotFound();
-        //            }
-        //            else
-        //            {
-        //                throw;
-        //            }
-        //        }
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    return Ok(productModel);
-        //}
-
-        // GET: Product/Delete/5
-        //public async Task<IActionResult> Delete(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    var productModel = await _context.products
-        //        .FirstOrDefaultAsync(m => m.Id == id);
-        //    if (productModel == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return Ok(productModel);
-        //}
-
         // POST: Product/Delete/5
         [Route("Delete")]
         [HttpDelete]
@@ -186,10 +106,5 @@ namespace ApiDeveloperSkillTestProject.Controllers.API
             await _context.SaveChangesAsync();
             return Ok(new {success=true});
         }
-
-        //private bool ProductModelExists(int id)
-        //{
-        //    return _context.products.Any(e => e.Id == id);
-        //}
     }
 }

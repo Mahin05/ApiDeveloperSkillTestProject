@@ -11,18 +11,18 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group mb-2">
                 <label class="control-label">Name</label>
-                <input class="form-control" id="Name"/>
-                <span class="text-danger"></span>
+            <input class="form-control" id="Name" />
+            <span class="text-danger" id="NameWrn"></span>
             </div>
             <div class="form-group mb-2">
                 <label class="control-label">Description</label>
                 <input class="form-control" id="Description" />
-                <span class="text-danger"></span>
+                <span class="text-danger" id="DescriptionWrn"></span>
             </div>
             <div class="form-group mb-2">
                 <label class="control-label">Price</label>
-                <input class="form-control" id="Price" />
-                <span class="text-danger"></span>
+                <input type="number" class="form-control" id="Price" />
+                <span class="text-danger" id="PriceWrn"></span>
             </div>
             <div class="form-group mb-2">
             <input type="button" id="CreateBtn" value="Create" class="btn btn-primary" />
@@ -45,6 +45,7 @@
         var description = $("#Description").val();
         var price = $("#Price").val();
 
+          console.log(typeof(price));
 
             var Product = {
             name: ProductName,
@@ -61,10 +62,25 @@
             dataType: 'json',
             data: JSON.stringify(Product),
             success: function (response) {
-                alert("Product created successfully!");
+               toastr.success("Product created successfully!");
             },
             error: function () {
-                alert("Failed");
+               console.log("ProductName",ProductName);
+               if(ProductName==""){
+                   toastr.error("please enter name!");
+               }
+               if(description==""){
+                   toastr.error("please enter description!");
+               }
+               if(price==""){
+                   toastr.error("please enter price!");
+               }
+               if(Number.isInteger(price) == false && price!=""){
+                   toastr.error("price must be numeric!");
+               }
+               else{
+                   toastr.error("Failed!");
+               }
             }
         });
         };

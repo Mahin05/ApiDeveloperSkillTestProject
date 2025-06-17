@@ -33,7 +33,7 @@
                 </div>
                 <div class="form-group mb-2">
                     <label class="control-label">Price</label>
-                    <input class="form-control" id="Price" />
+                    <input type="number" class="form-control" id="Price" />
                     <span class="text-danger"></span>
                 </div>
                 <div class="form-group mb-2">
@@ -131,7 +131,7 @@
          var ProductName = $("#Name").val();
          var description = $("#Description").val();
          var price = $("#Price").val();
-
+          console.log(typeof(price));
 
              var Product = {
              id: id,
@@ -149,10 +149,25 @@
              dataType: 'json',
              data: JSON.stringify(Product),
              success: function (response) {
-                 alert("Product upadted successfully!");
+                    toastr.success("Product upadted successfully!");
+
              },
-             error: function () {
-                 alert("Failed");
+               error: function () {
+                if(ProductName==""){
+                    toastr.error("please enter name!");
+                }
+                if(description==""){
+                    toastr.error("please enter description!");
+                }
+                if(price==""){
+                    toastr.error("please enter price!");
+                }
+                if(Number.isInteger(price) == false && price!=""){
+                    toastr.error("price must be numeric!");
+                }
+                else{
+                    toastr.error("Failed!");
+                }
              }
          });
          };
