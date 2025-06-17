@@ -10,7 +10,7 @@
 ## Setup/Run Instructions:
 
 - Download the github repository or clone the HTTPS url in Visual Studio.
-
+- Open the .sln file in Visual Studio
 - Run the project in Visual Studio via IIS Express, http, https etc.
 
 **THANK YOU**
