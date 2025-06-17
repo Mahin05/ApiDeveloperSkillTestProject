@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using API.Model;
+using ApiDeveloperSkillTestProject.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using API.Model;
-using ApiDeveloperSkillTestProject.Data;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ApiDeveloperSkillTestProject.Controllers.API
 {
@@ -38,22 +39,25 @@ namespace ApiDeveloperSkillTestProject.Controllers.API
 
 
         // GET: Product/Details/5
-        //public async Task<IActionResult> Details(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
 
-        //    var productModel = await _context.products
-        //        .FirstOrDefaultAsync(m => m.Id == id);
-        //    if (productModel == null)
-        //    {
-        //        return NotFound();
-        //    }
+        [Route("GetProduct")]
+        [HttpGet]
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
-        //    return Ok(productModel);
-        //}
+            var productModel = await _context.products
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (productModel == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(new { success = true, message = "data loaded successfully", data = productModel });
+        }
 
         // GET: Product/Create
         //public IActionResult Create()
@@ -75,6 +79,24 @@ namespace ApiDeveloperSkillTestProject.Controllers.API
                 await _context.SaveChangesAsync();
 
                 return Ok(new {success = true, message = "Product created successfully",data = productModel});
+            }
+
+            return BadRequest(new {success = false,message = "Invalid product data"});
+        }
+
+        [Route("EditProduct")]
+        [HttpPut]
+        public async Task<IActionResult> Edit(int id,[FromBody] ProductModel productModel)
+        {
+            if (ModelState.IsValid)
+            {
+                if (id != 0)
+                {
+                    _context.Update(productModel);
+                    await _context.SaveChangesAsync();
+
+                    return Ok(new { success = true, message = "Product updated successfully", data = productModel });
+                }
             }
 
             return BadRequest(new {success = false,message = "Invalid product data"});
