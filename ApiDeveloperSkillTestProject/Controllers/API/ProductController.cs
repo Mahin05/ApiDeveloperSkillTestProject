@@ -173,19 +173,19 @@ namespace ApiDeveloperSkillTestProject.Controllers.API
         //}
 
         // POST: Product/Delete/5
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> DeleteConfirmed(int id)
-        //{
-        //    var productModel = await _context.products.FindAsync(id);
-        //    if (productModel != null)
-        //    {
-        //        _context.products.Remove(productModel);
-        //    }
+        [Route("Delete")]
+        [HttpDelete]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var productModel = await _context.products.FindAsync(id);
+            if (productModel != null)
+            {
+                _context.products.Remove(productModel);
+            }
 
-        //    await _context.SaveChangesAsync();
-        //    return RedirectToAction(nameof(Index));
-        //}
+            await _context.SaveChangesAsync();
+            return Ok(new {success=true});
+        }
 
         //private bool ProductModelExists(int id)
         //{

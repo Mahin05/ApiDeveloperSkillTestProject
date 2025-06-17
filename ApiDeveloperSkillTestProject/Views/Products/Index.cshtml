@@ -7,7 +7,7 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<p class="text-center fs-4" style="display:block" id="NoDataFlag">No Data Avaialbe</p>
+<p class="text-center fs-4" style="display:block" id="NoDataFlag">No Data Available</p>
 
 <div id="product-table"></div>
 
@@ -19,7 +19,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <input class="form-control" id="id" />
+                <input class="form-control d-none" id="id" />
 
                 <div class="form-group mb-2">
                     <label class="control-label">Name</label>
@@ -162,5 +162,55 @@
             //alert("click");
             Saveproductinfo();
         });
+
+
+
+         $(document).on('click', '.delete-button', function (e) {
+                 e.preventDefault();
+
+                  var id = $(this).data('id');
+
+                 Swal.fire({
+                     title: "Are you sure?",
+                     text: "You won't be able to revert this!",
+                     icon: "warning",
+                     showCancelButton: true,
+                     confirmButtonColor: "#3085d6",
+                     cancelButtonColor: "#d33",
+                     confirmButtonText: "Yes, delete it!"
+                 }).then((result) => {
+                     if (result.isConfirmed) {
+                         $.ajax({
+                             url: '@Url.Action("Delete", "Product")/?id=' + id,
+                             type: 'DELETE',
+                             success: function (response) {
+                                 if (response.success) {
+                                     Swal.fire(
+                                         'Deleted!',
+                                         response.message,
+                                         'success'
+                                     ).then(() => {
+                                         location.reload();
+                                     });
+                                 }
+                                 else {
+                                     Swal.fire(
+                                         'Failed!',
+                                         response.message || 'Cannot Remove Department!',
+                                         'error'
+                                     );
+                                 }
+                             },
+                             error: function () {
+                                 Swal.fire(
+                                     'Error!',
+                                     'An error occurred while deleting.',
+                                     'error'
+                                 );
+                             }
+                         });
+                     }
+                 });
+             });
     </script>
 }
