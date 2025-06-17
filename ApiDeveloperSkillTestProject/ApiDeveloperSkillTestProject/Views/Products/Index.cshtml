@@ -4,12 +4,12 @@
 
 <h3 class="text-center">Product List</h3>
 
-<p>
+@* <p>
     <a class="btn btn-primary" asp-action="Create">Create New</a>
-</p>
-<p class="text-center fs-4" style="display:block" id="NoDataFlag">No Data Available</p>
+</p> *@
+<p class="text-center fs-4 mt-5 text-danger" style="display:block" id="NoDataFlag">No Data Available</p>
 
-<div id="product-table"></div>
+<div id="product-table" class="mt-5"></div>
 
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -55,7 +55,7 @@
                       $("#NoDataFlag").css("display", "none");
                       //Build Tabulator
                           table = new Tabulator("#product-table", {
-                          height: "450px",
+                          height: "350px",
                           data: response.data,
                           layout: "fitColumns",
                           placeholder: "No Data Set",

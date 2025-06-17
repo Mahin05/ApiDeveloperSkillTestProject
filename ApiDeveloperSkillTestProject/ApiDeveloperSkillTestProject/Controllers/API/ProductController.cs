@@ -104,7 +104,7 @@ namespace ApiDeveloperSkillTestProject.Controllers.API
             }
 
             await _context.SaveChangesAsync();
-            return Ok(new {success=true});
+            return Ok(new {success=true, message = "Product deleted successfully!" });
         }
     }
 }
