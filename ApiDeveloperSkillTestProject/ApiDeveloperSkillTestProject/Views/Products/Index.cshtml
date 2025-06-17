@@ -65,7 +65,7 @@
                           movableColumns: true,
                           paginationCounter: "rows",
                           columns: [
-                              { title: "Id", field: "id", sorter: "string"},
+                              // { title: "Id", field: "id", sorter: "string"},
                               { title: "Product Name", field: "name", sorter: "string"},
                               { title: "Description", field: "description", sorter: "string"},
                               { title: "Price", field: "price", sorter: "string"},
@@ -149,7 +149,11 @@
              dataType: 'json',
              data: JSON.stringify(Product),
              success: function (response) {
-                    toastr.success("Product upadted successfully!");
+                     toastr.success("Product upadted successfully!");
+                     setTimeout(function () {
+                         window.location.href = '@Url.Action("Index", "Products")';
+                         // location.reload();
+                     }, 1000);
 
              },
                error: function () {
